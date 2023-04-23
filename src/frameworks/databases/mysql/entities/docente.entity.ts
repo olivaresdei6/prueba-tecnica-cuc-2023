@@ -18,6 +18,10 @@ export class Docente {
 		example: 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
 		uniqueItems: true,
 	})
+	@Column('varchar', {
+		unique: true,
+		nullable: false,
+	})
 	uuid?: string;
 
 	@ApiProperty({
@@ -55,6 +59,20 @@ export class Docente {
 	tipoDocumento?: string;
 
 	@ApiProperty({
+		example: '123456789',
+		description: 'Número de documento del docente',
+	})
+	@Column('varchar', {
+		nullable: false,
+		length : 200,
+		name: 'numero_documento',
+		unique: true
+	})
+	numeroDocumento!: string;
+
+
+
+	@ApiProperty({
 		example: 'correo@correo.com',
 		description: 'Correo electrónico del docente',
 	})
@@ -63,7 +81,7 @@ export class Docente {
 		length : 200,
 		unique: true
 	})
-	correoElectronico!: string;
+	correo!: string;
 
 	@ApiProperty({
 		example: 1,

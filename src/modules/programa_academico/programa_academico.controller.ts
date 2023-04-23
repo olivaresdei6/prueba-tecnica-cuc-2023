@@ -15,7 +15,7 @@ export class ProgramaAcademicoController {
 		private readonly programaAcademicoService: ProgramaAcademicoService
 	) {}
 
-	@ApiResponse({ status: 201, description: 'Programa Académico creado correctamente.', type: ProgramaAcademico })
+	@ApiResponse({ status: 201, description: 'Programa Académico creado correctamente.' })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
 	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
@@ -57,7 +57,7 @@ export class ProgramaAcademicoController {
 	@ApiResponse({ status: 404, description: 'Not Found: El programa académico no existe' })
 	@Patch(':uuid')
 
-	update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() updateAddressDto: UpdateProgramaAcademicoDto) {
-		return this.programaAcademicoService.update(uuid, updateAddressDto);
+	update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() updateProgramaAcademicoDto: UpdateProgramaAcademicoDto) {
+		return this.programaAcademicoService.update(uuid, updateProgramaAcademicoDto);
 	}
 }

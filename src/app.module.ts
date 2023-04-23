@@ -7,6 +7,7 @@ import { envConfiguration } from './config/env.config';
 import { JoiValidationSchema } from './config/joi.validation';
 import { MySQLDatabaseModule } from './frameworks/databases/mysql/mysql.module';
 import { ProgramaAcademicoModule } from './modules/programa_academico/programa_academico.module';
+import { DocenteModule } from './modules/docente/docente.module';
 
 @Module({
     imports: [
@@ -16,7 +17,8 @@ import { ProgramaAcademicoModule } from './modules/programa_academico/programa_a
 		}),
 
 		MySQLDatabaseModule,
-		ProgramaAcademicoModule
+		ProgramaAcademicoModule,
+		DocenteModule
 	],
 	exports: [AppService],
     controllers: [AppController],
