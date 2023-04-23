@@ -95,7 +95,12 @@ export class Grupo {
 	idDocente!: number | Docente;
 
 
-	@OneToMany(() => Asignatura, asignatura => asignatura.idGrupo)
-	asignaturas?: Asignatura[];
+	@ApiProperty({
+		description: 'Identificador de la asignatura a la que pertenece el grupo',
+		example: 1,
+	})
+	@ManyToOne(() => Asignatura, asignatura => asignatura.id)
+	@JoinColumn({name: 'id_asignatura'})
+	idAsignatura!: number | Asignatura;
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import {ProgramaAcademico} from '../../frameworks/databases/mysql/entities';
+import { Docente } from '../../frameworks/databases/mysql/entities';
 import { IBaseDeDatosAbstract } from "../../frameworks/databases/mysql/core/abstract";
 import { generateUUID } from '../../helpers/generate_uuid.helper';
 import { CreateDocenteDto } from './dto/create-docente.dto';
@@ -21,18 +21,18 @@ export class DocenteService {
 	}
 
 
-	async findAll() : Promise<ProgramaAcademico[]> {
+	async findAll() : Promise<Docente[]> {
 		return await this.databaseService.docente.findAll();
 	}
 
 
-	async findOne(uuid: string) : Promise<ProgramaAcademico> {
+	async findOne(uuid: string) : Promise<Docente> {
 		return await this.databaseService.docente.findOne({ where: { uuid } }, 'Docente');
 
 	}
 
 
-	async update(uuid: string, updateDocenteDto: UpdateDocenteDto) : Promise<ProgramaAcademico> {
+	async update(uuid: string, updateDocenteDto: UpdateDocenteDto) : Promise<Docente> {
 		return await this.databaseService.docente.update(uuid, updateDocenteDto);
 	}
 

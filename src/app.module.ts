@@ -8,6 +8,7 @@ import { JoiValidationSchema } from './config/joi.validation';
 import { MySQLDatabaseModule } from './frameworks/databases/mysql/mysql.module';
 import { ProgramaAcademicoModule } from './modules/programa_academico/programa_academico.module';
 import { DocenteModule } from './modules/docente/docente.module';
+import { AsignaturaModule } from './modules/asignatura/asignatura.module';
 
 @Module({
     imports: [
@@ -18,7 +19,8 @@ import { DocenteModule } from './modules/docente/docente.module';
 
 		MySQLDatabaseModule,
 		ProgramaAcademicoModule,
-		DocenteModule
+		DocenteModule,
+		AsignaturaModule
 	],
 	exports: [AppService],
     controllers: [AppController],
