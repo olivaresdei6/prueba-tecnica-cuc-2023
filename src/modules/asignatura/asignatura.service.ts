@@ -25,7 +25,7 @@ export class AsignaturaService {
 			await this.baseDeDatosService.asignatura.create({
 				nombre,
 			 	uuid: generateUUID(),
-				idProgramaAcademico: programaAcademico.id
+				programaAcademico: programaAcademico.id
 			});
 			return { status: 201, message: 'Asignatura creada correctamente' };
 		}
@@ -52,7 +52,7 @@ export class AsignaturaService {
 			if (programaAcademico){
 				await this.baseDeDatosService.asignatura.update(uuid, {
 					nombre,
-					idProgramaAcademico: programaAcademico.id
+					programaAcademico: programaAcademico.id
 				});
 			}
 		}else{

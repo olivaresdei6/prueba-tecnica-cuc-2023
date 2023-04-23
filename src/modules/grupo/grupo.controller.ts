@@ -1,63 +1,62 @@
-import { Body, Controller, Get, Param, ParseIntPipe, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import {ApiResponse, ApiTags} from "@nestjs/swagger";
-import { Asignatura } from '../../frameworks/databases/mysql/entities';
-import { AsignaturaService } from './asignatura.service';
+import { Grupo } from '../../frameworks/databases/mysql/entities';
+import { GrupoService } from './grupo.service';
 import { CreateGrupoDto } from './dto/create-grupo.dto';
 import { UpdateGrupoDto } from './dto/update-grupo.dto';
 
 
-@ApiTags("Asignatura")
+@ApiTags("Grupo")
 
-@Controller('asignatura')
-export class AsignaturaController {
+@Controller('grupo')
+export class GrupoController {
 
 	constructor(
-		private readonly asignaturaService: AsignaturaService
+		private readonly grupoService: GrupoService
 	) {}
 
-	@ApiResponse({ status: 201, description: 'Asignatura creada correctamente.' })
+	@ApiResponse({ status: 201, description: 'Grupo creado correctamente.' })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
 	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
-	@ApiResponse({ status: 404, description: 'Not Found: La Asignatura no existe' })
+	@ApiResponse({ status: 404, description: 'Not Found: El Grupo no existe' })
 	@Post()
 
-	create(@Body() createAsignaturaDto: CreateGrupoDto) {
-		return this.asignaturaService.create(createAsignaturaDto);
+	create(@Body() createGrupoDto: CreateGrupoDto) {
+		return this.grupoService.create(createGrupoDto);
 	}
 
 
-	@ApiResponse({ status: 201, description: 'Asignaturas encontradas correctamente.', type: Asignatura, isArray: true })
+	@ApiResponse({ status: 201, description: 'Grupos encontrados correctamente.', type: Grupo, isArray: true })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
 	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
-	@ApiResponse({ status: 404, description: 'Not Found: No se encontraron Asignaturas' })
+	@ApiResponse({ status: 404, description: 'Not Found: No se encontraron Grupo' })
 	@Get()
-
 	findAll() {
-		return this.asignaturaService.findAll();
+		return this.grupoService.findAll();
 	}
 
 
-	@ApiResponse({ status: 201, description: 'Asignatura encontrada correctamente.', type: Asignatura })
+	@ApiResponse({ status: 201, description: 'Asignatura encontrada correctamente.', type: Grupo })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
 	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 404, description: 'Not Found: La Asignatura no existe' })
 	@Get(':uuid')
 	findOne(@Param('uuid', ParseUUIDPipe) uuid: string) {
-		return this.asignaturaService.findOne(uuid);
+		return this.grupoService.findOne(uuid);
 	}
 
 
-	@ApiResponse({ status: 201, description: 'Docente actualizado correctamente.', type: Asignatura })
+	@ApiResponse({ status: 201, description: 'Grupo actualizado correctamente.', type: Grupo })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
 	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
-	@ApiResponse({ status: 404, description: 'Not Found: El Docente no existe' })
+	@ApiResponse({ status: 404, description: 'Not Found: El Grupo no existe' })
 	@Patch(':uuid')
 
-	update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() updateAsignaturaDto: UpdateGrupoDto) {
-		return this.asignaturaService.update(uuid, updateAsignaturaDto);
+	update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() updateGrupoDto: UpdateGrupoDto) {
+		return this.grupoService.update(uuid, updateGrupoDto);
 	}
 }

@@ -93,6 +93,6 @@ export class Docente {
 	})
 	estado?: number;
 
-	@OneToMany(() => Grupo, grupo => grupo.idDocente)
+	@OneToMany(() => Grupo, grupo => grupo.docente)
 	grupos?: Grupo[];
 }

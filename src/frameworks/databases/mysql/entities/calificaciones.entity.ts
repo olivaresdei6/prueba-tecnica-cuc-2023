@@ -70,14 +70,14 @@ export class Calificacion {
 		example: 1,
 		description: 'Id del curso',
 	})
-	@ManyToOne(() => Grupo, (grupo) => grupo.id)
-	idGrupo?: number | Grupo;
+	@ManyToOne(() => Grupo, (grupo) => grupo.id, {eager: true})
+	grupo?: number | Grupo;
 
 
 	@ApiProperty({
 		example: 1,
 		description: 'Id del estudiante',
 	})
-	@ManyToOne(() => Estudiante, (estudiante) => estudiante.id)
-	idEstudiante?: number | Estudiante;
+	@ManyToOne(() => Estudiante, (estudiante) => estudiante.id, {eager: true})
+	estudiante?: number | Estudiante;
 }

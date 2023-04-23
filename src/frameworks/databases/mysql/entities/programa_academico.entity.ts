@@ -47,9 +47,9 @@ export class ProgramaAcademico {
 	})
 	estado?: number;
 
-	@OneToMany(() => Asignatura, asignatura => asignatura.idProgramaAcademico)
+	@OneToMany(() => Asignatura, asignatura => asignatura.programaAcademico)
 	asignaturas?: Asignatura[];
 
-	@OneToMany(() => Estudiante, estudiante => estudiante.idProgramaAcademico)
+	@OneToMany(() => Estudiante, estudiante => estudiante.programaAcademico)
 	estudiantes?: Estudiante[];
 }

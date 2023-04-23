@@ -9,6 +9,7 @@ import { MySQLDatabaseModule } from './frameworks/databases/mysql/mysql.module';
 import { ProgramaAcademicoModule } from './modules/programa_academico/programa_academico.module';
 import { DocenteModule } from './modules/docente/docente.module';
 import { AsignaturaModule } from './modules/asignatura/asignatura.module';
+import { GrupoModule } from './modules/grupo/grupo.module';
 
 @Module({
     imports: [
@@ -20,7 +21,8 @@ import { AsignaturaModule } from './modules/asignatura/asignatura.module';
 		MySQLDatabaseModule,
 		ProgramaAcademicoModule,
 		DocenteModule,
-		AsignaturaModule
+		AsignaturaModule,
+		GrupoModule
 	],
 	exports: [AppService],
     controllers: [AppController],

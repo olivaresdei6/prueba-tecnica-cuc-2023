@@ -82,25 +82,25 @@ export class Grupo {
 		description: 'Identificador del programa universitario al que pertenece el grupo',
 		example: 1,
 	})
-	@ManyToOne(() => ProgramaAcademico, programaAcademico => programaAcademico.id)
+	@ManyToOne(() => ProgramaAcademico, programaAcademico => programaAcademico.id, {eager: true})
 	@JoinColumn({name: 'id_programa_universitario'})
-	idProgramaAcademico!: number | ProgramaAcademico;
+	programaAcademico!: number | ProgramaAcademico;
 
 	@ApiProperty({
 		description: 'Identificador del docente que dicta el grupo',
 		example: 1,
 	})
-	@ManyToOne(() => Docente, docente => docente.id)
+	@ManyToOne(() => Docente, docente => docente.id, {eager: true})
 	@JoinColumn({name: 'id_docente'})
-	idDocente!: number | Docente;
+	docente!: number | Docente;
 
 
 	@ApiProperty({
 		description: 'Identificador de la asignatura a la que pertenece el grupo',
 		example: 1,
 	})
-	@ManyToOne(() => Asignatura, asignatura => asignatura.id)
+	@ManyToOne(() => Asignatura, asignatura => asignatura.id, {eager: true})
 	@JoinColumn({name: 'id_asignatura'})
-	idAsignatura!: number | Asignatura;
+	asignatura!: number | Asignatura;
 
 }

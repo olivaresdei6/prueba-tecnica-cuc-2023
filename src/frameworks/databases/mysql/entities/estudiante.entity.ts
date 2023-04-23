@@ -98,10 +98,10 @@ export class Estudiante {
 		description: 'Identificador único del programa universitario al que pertenece el estudiante',
 		uniqueItems: true
 	})
-	@ManyToOne(() => ProgramaAcademico, programaAcademico => programaAcademico.id)
+	@ManyToOne(() => ProgramaAcademico, programaAcademico => programaAcademico.id, {eager: true})
 	@JoinColumn({name: 'id_programa_academico'})
 
-	idProgramaAcademico?: number | ProgramaAcademico;
+	programaAcademico?: number | ProgramaAcademico;
 
 
 }

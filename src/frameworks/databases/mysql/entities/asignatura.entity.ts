@@ -52,10 +52,10 @@ export class Asignatura {
 		description: 'Identificador único del programa universitario',
 	})
 
-	@ManyToOne(() => ProgramaAcademico, programaUniversitario => programaUniversitario.id)
+	@ManyToOne(() => ProgramaAcademico, programaUniversitario => programaUniversitario.id, {eager: true})
 	@JoinColumn({name: 'id_programa_academico'})
-	idProgramaAcademico?: number | ProgramaAcademico;
+	programaAcademico?: number | ProgramaAcademico;
 
-	@OneToMany(() => Grupo, grupo => grupo.idAsignatura)
+	@OneToMany(() => Grupo, grupo => grupo.asignatura)
 	grupos?: Grupo[];
 }

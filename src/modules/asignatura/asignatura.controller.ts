@@ -50,11 +50,11 @@ export class AsignaturaController {
 	}
 
 
-	@ApiResponse({ status: 201, description: 'Docente actualizado correctamente.', type: Asignatura })
+	@ApiResponse({ status: 201, description: 'Asignatura actualizada correctamente.', type: Asignatura })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
 	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
-	@ApiResponse({ status: 404, description: 'Not Found: El Docente no existe' })
+	@ApiResponse({ status: 404, description: 'Not Found: La Asignatura no existe' })
 	@Patch(':uuid')
 
 	update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() updateAsignaturaDto: UpdateAsignaturaDto) {
