@@ -54,7 +54,7 @@ export class Asignatura {
 
 	@ManyToOne(() => ProgramaAcademico, programaUniversitario => programaUniversitario.id, {eager: true})
 	@JoinColumn({name: 'id_programa_academico'})
-	programaAcademico?: number | ProgramaAcademico;
+	programaAcademico?: number;
 
 	@OneToMany(() => Grupo, grupo => grupo.asignatura)
 	grupos?: Grupo[];

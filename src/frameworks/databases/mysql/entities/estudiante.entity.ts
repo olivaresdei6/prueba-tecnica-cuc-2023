@@ -101,7 +101,7 @@ export class Estudiante {
 	@ManyToOne(() => ProgramaAcademico, programaAcademico => programaAcademico.id, {eager: true})
 	@JoinColumn({name: 'id_programa_academico'})
 
-	programaAcademico?: number | ProgramaAcademico;
+	programaAcademico?: number;
 
 
 }

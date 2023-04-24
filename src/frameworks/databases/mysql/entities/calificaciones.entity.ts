@@ -27,7 +27,8 @@ export class Calificacion {
 	@Column('decimal', {
 		nullable: false,
 		precision: 2,
-		name: 'nota_corte_1'
+		name: 'nota_corte_1',
+		default: 0
 	})
 	notaCorte1?: number;
 
@@ -39,7 +40,8 @@ export class Calificacion {
 	@Column('decimal', {
 		nullable: false,
 		precision: 2,
-		name: 'nota_corte_2'
+		name: 'nota_corte_2',
+		default: 0
 	})
 	notaCorte2?: number;
 
@@ -51,7 +53,8 @@ export class Calificacion {
 	@Column('decimal', {
 		nullable: false,
 		precision: 2,
-		name: 'nota_corte_3'
+		name: 'nota_corte_3',
+		default: 0
 	})
 	notaCorte3?: number;
 
@@ -71,7 +74,7 @@ export class Calificacion {
 		description: 'Id del curso',
 	})
 	@ManyToOne(() => Grupo, (grupo) => grupo.id, {eager: true})
-	grupo?: number | Grupo;
+	grupo?: number;
 
 
 	@ApiProperty({
@@ -79,5 +82,5 @@ export class Calificacion {
 		description: 'Id del estudiante',
 	})
 	@ManyToOne(() => Estudiante, (estudiante) => estudiante.id, {eager: true})
-	estudiante?: number | Estudiante;
+	estudiante?: number;
 }

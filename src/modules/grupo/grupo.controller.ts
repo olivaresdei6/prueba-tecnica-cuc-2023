@@ -38,11 +38,11 @@ export class GrupoController {
 	}
 
 
-	@ApiResponse({ status: 201, description: 'Asignatura encontrada correctamente.', type: Grupo })
+	@ApiResponse({ status: 201, description: 'Grupo encontrado correctamente.', type: Grupo })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
 	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
 	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
-	@ApiResponse({ status: 404, description: 'Not Found: La Asignatura no existe' })
+	@ApiResponse({ status: 404, description: 'Not Found: El Grupo no existe' })
 	@Get(':uuid')
 	findOne(@Param('uuid', ParseUUIDPipe) uuid: string) {
 		return this.grupoService.findOne(uuid);
