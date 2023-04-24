@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Calificacion, Estudiante, Grupo, ProgramaAcademico } from '../../frameworks/databases/mysql/entities';
 import { IBaseDeDatosAbstract } from '../../frameworks/databases/mysql/core/abstract';
-import { generateUUID } from '../../helpers/generate_uuid.helper';
 import { ExceptionsService } from '../../config/exceptions/exceptions.service';
+import { RegistrarEstudianteEnElGrupoDto } from './dto/registrar_estudiante_en_el_grupo.dto';
 
 
 @Injectable()
@@ -72,18 +72,11 @@ export class CalificacionService {
 			[docente],
 
 		]
-		let calificacionesConNombres = [];
+		let calificacionesConNombres;
+		// Se hace un map para agregarle los datos del estudiante a cada calificacion
+		// Se hace un Promise.all para que se resuelvan todas las promesas de una vez
 		calificacionesConNombres= await Promise.all(calificaciones.map(async calificacion => {
-			// @ts-ignore
-			const {
-				nombre,
-				apellido,
-				correo,
-				tipoDocumento,
-				numeroDocumento,
-				uuid,
-				programaAcademico
-			} = await this.baseDeDatosService.estudiante.findOne({where: {id: calificacion.estudiante}}, 'Estudiante');
+			const {	nombre,apellido, correo,	tipoDocumento,	numeroDocumento, uuid, programaAcademico } = await this.baseDeDatosService.estudiante.findOne({where: {id: calificacion.estudiante}}, 'Estudiante', false);
 
 
 			const {notaCorte1, notaCorte2, notaCorte3} = calificacion;
@@ -94,6 +87,37 @@ export class CalificacionService {
 		}));
 		data.push(calificacionesConNombres);
 		return data;
+	}
+
+	async registrarEstudiantesGrupo(uuid: string, estudiantes: RegistrarEstudianteEnElGrupoDto)  {
+		// Se verifica que el grupo exista
+		const grupo = await this.getGrupo(uuid);
+		// Se extraen las calificaciones del grupo
+		const calificaciones = await this.baseDeDatosService.calificacion.findBy({grupo: grupo.id});
+		// arreglo que contiene los estudiantes que se van a registrar
+		let estudiantesHaRegistrar: Estudiante[] = [];
+		// Se verifica que los estudiantes que se quieren registrar no esten registrados en el grupo con los datos del dto
+		for (const estudiante of estudiantes.estudiantesGrupos) {
+			// Se extrae el estudiante de la base de datos
+			const estudianteRegistrar = await this.baseDeDatosService.estudiante.findOne({where: {uuid: estudiante.uuidEstudiante}}, 'Estudiante', false);
+			for (const calificacion of calificaciones) {
+				// Se extrae el id del estudiante de la calificacion
+				const idCalificacionEstudiante = calificacion.estudiante;
+				// Se verifica que el estudiante no este registrado en el grupo, que no exista en el mismo grupo y que exista en la base de datos
+				if (!(idCalificacionEstudiante === estudianteRegistrar.id) && !(calificacion.grupo === grupo.id) && estudianteRegistrar) {
+					estudiantesHaRegistrar.push(estudianteRegistrar);
+				}
+			}
+		}
+
+		// Se registran los estudiantes en el grupo y se retorna un arreglo con los estudiantes registrados
+		const estudiantesRegistrados = await Promise.all(estudiantesHaRegistrar.map(async estudiante => {
+			return await this.baseDeDatosService.calificacion.create({
+				estudiante: estudiante.id,
+				grupo: grupo.id,
+			});
+		}));
+		return { message: 'Estudiantes registrados correctamente', estudiantesRegistrados };
 	}
 
 
@@ -112,14 +136,6 @@ export class CalificacionService {
 			this.exceptionService.notFoundException({message: 'El grupo no existe'});
 		}
 		return grupo;
-	}
-
-	private async getEstudiante(uuid: string): Promise<Estudiante> {
-		const estudiante = await this.baseDeDatosService.estudiante.findOne({where: {uuid}}, 'Estudiante');
-		if (!estudiante) {
-			this.exceptionService.notFoundException({message: 'El estudiante no existe'});
-		}
-		return estudiante;
 	}
 
 }

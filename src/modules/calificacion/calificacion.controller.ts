@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
 import {ApiResponse, ApiTags} from "@nestjs/swagger";
-import { Calificacion, Estudiante, Grupo } from '../../frameworks/databases/mysql/entities';
 import { CalificacionService } from './calificacion.service';
 import { NotaCorte1Dto } from './dto/nota_corte1.dto';
 import { NotaCorte2Dto } from './dto/nota_corte2.dto';
 import { NotaCorte3Dto } from './dto/nota_corte3.dto';
+import { RegistrarEstudianteEnElGrupoDto } from './dto/registrar_estudiante_en_el_grupo.dto';
 
 
 @ApiTags("calificacion")
@@ -91,7 +91,14 @@ export class CalificacionController {
 		return this.calificacionService.calcularNotaCorte(uuid);
 	}
 
-	// TODO: Falta el método para recibir un arreglo de estudiantes que perteneceran a un grupo y crearles el registro de calificaciones
 
+	@ApiResponse({ status: 201, description: 'Estudiantes inscritos correctamente.' })
+	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
+	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
+	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
+	@Patch('/inscribir_estudiantes/:uuid')
+	inscribirEstudiantes(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() estudianteEnElGrupoDto :RegistrarEstudianteEnElGrupoDto) {
+		return this.calificacionService.registrarEstudiantesGrupo(uuid, estudianteEnElGrupoDto);
+	}
 
 }
