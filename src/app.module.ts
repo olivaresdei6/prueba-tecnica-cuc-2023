@@ -10,6 +10,8 @@ import { ProgramaAcademicoModule } from './modules/programa_academico/programa_a
 import { DocenteModule } from './modules/docente/docente.module';
 import { AsignaturaModule } from './modules/asignatura/asignatura.module';
 import { GrupoModule } from './modules/grupo/grupo.module';
+import { EstudianteModule } from './modules/estudiante/estudiante.module';
+import { CalificacionModule } from './modules/calificacion/calificacion.module';
 
 @Module({
     imports: [
@@ -22,7 +24,9 @@ import { GrupoModule } from './modules/grupo/grupo.module';
 		ProgramaAcademicoModule,
 		DocenteModule,
 		AsignaturaModule,
-		GrupoModule
+		GrupoModule,
+		EstudianteModule,
+		CalificacionModule
 	],
 	exports: [AppService],
     controllers: [AppController],

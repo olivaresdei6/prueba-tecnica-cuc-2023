@@ -7,9 +7,9 @@ import { NotaCorte2Dto } from './dto/nota_corte2.dto';
 import { NotaCorte3Dto } from './dto/nota_corte3.dto';
 
 
-@ApiTags("Estudiante")
+@ApiTags("calificacion")
 
-@Controller('estudiante')
+@Controller('calificacion')
 export class CalificacionController {
 
 	constructor(
