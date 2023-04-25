@@ -49,6 +49,17 @@ export class AsignaturaController {
 		return this.asignaturaService.findOne(uuid);
 	}
 
+	@ApiResponse({ status: 201, description: 'Asignaturas encontrada correctamente.', type: Asignatura })
+	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
+	@ApiResponse({ status: 401, description: 'Unauthorized: No tiene permisos para realizar esta acción' })
+	@ApiResponse({ status: 403, description: 'Forbidden: No tiene permisos para realizar esta acción' })
+	@ApiResponse({ status: 404, description: 'Not Found: La Asignatura no existe' })
+	@Get('programaAcademico/:uuidProgramaAcademico')
+	findOneByProgramaAcademico(@Param('uuidProgramaAcademico', ParseUUIDPipe) uuidProgramaAcademico: string) {
+		return this.asignaturaService.findOneByProgramaAcademico(uuidProgramaAcademico);
+	}
+
+
 
 	@ApiResponse({ status: 201, description: 'Asignatura actualizada correctamente.', type: Asignatura })
 	@ApiResponse({ status: 400, description: 'Bad Request: Verifique los datos de entrada' })
@@ -60,4 +71,6 @@ export class AsignaturaController {
 	update(@Param('uuid', ParseUUIDPipe) uuid: string, @Body() updateAsignaturaDto: UpdateAsignaturaDto) {
 		return this.asignaturaService.update(uuid, updateAsignaturaDto);
 	}
+
+
 }

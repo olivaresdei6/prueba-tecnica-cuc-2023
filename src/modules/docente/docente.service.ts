@@ -16,7 +16,8 @@ export class DocenteService {
 
 
 	async create(createDocenteDto: CreateDocenteDto){
-		await this.databaseService.docente.create({...createDocenteDto, uuid: generateUUID()});
+		const { id } = await this.databaseService.programaAcademico.findOne({ where: { uuid: createDocenteDto.uuidProgramaAcademico } }, 'Programa Academico');
+		await this.databaseService.docente.create({...createDocenteDto, uuid: generateUUID(), programaAcademico: id});
 		return { status: 201, message: 'Docente creado correctamente' };
 	}
 

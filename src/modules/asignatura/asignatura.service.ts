@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 import { Asignatura, ProgramaAcademico } from '../../frameworks/databases/mysql/entities';
-import { IBaseDeDatosAbstract } from "../../frameworks/databases/mysql/core/abstract";
+import { IBaseDeDatosAbstract } from '../../frameworks/databases/mysql/core/abstract';
 import { generateUUID } from '../../helpers/generate_uuid.helper';
 import { CreateAsignaturaDto } from './dto/create-asignatura.dto';
 import { UpdateAsignaturaDto } from './dto/update-asignatura.dto';
@@ -41,6 +41,12 @@ export class AsignaturaService {
 		return await this.baseDeDatosService.asignatura.findOne({ where: { uuid } }, 'Asignatura');
 	}
 
+	async findOneByProgramaAcademico(uuidProgramaAcademico: string) : Promise<Asignatura[]> {
+		const programaAcademico = await this.getProgramaAcademico(uuidProgramaAcademico);
+		const id = +programaAcademico.id;
+		return await this.baseDeDatosService.asignatura.findBy({programaAcademico: id});
+	}
+
 
 	async update(uuid: string, updateDocenteDto: UpdateAsignaturaDto) : Promise<Asignatura> {
 		const {uuidProgramaAcademico, nombre} = updateDocenteDto;
@@ -62,11 +68,9 @@ export class AsignaturaService {
 
 
 	private async getProgramaAcademico(idProgramaAcademico: string): Promise<ProgramaAcademico>{
-		const programaAcademico = await this.baseDeDatosService.programaAcademico.findOne(
-			{where: {uuid: idProgramaAcademico}}, 'Programa Academico'
+		return await this.baseDeDatosService.programaAcademico.findOne(
+			{ where: { uuid: idProgramaAcademico } }, 'Programa Academico'
 		);
-		console.log('programaAcademico', programaAcademico);
-		return programaAcademico;
 	}
 
 }

@@ -8,7 +8,7 @@ export abstract class IGenericRepository<T> {
 
 	public abstract findOne(options: FindOneOptions<T>, entity: string, launchException?:boolean): Promise<T | null>;
 
-	public abstract findBy(where: FindOptionsWhere<T> | FindOptionsWhere<T>[], options?: FindOneOptions<T>): Promise<T[]>;
+	public abstract findBy(where: FindOptionsWhere<T> | FindOptionsWhere<T>[]): Promise<T[]>;
 
 	public abstract create(entity: DeepPartial<T>): Promise<T>;
 

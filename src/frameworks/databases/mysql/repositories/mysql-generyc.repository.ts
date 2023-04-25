@@ -13,8 +13,8 @@ export class MysqlGenericRepository<T> implements IGenericRepository<T> {
 		this.exceptions = exceptions;
 	}
 
-	public async findBy(where: FindOptionsWhere<T> | FindOptionsWhere<T>[], options?: FindOneOptions<T>): Promise<T[]> {
-		return await this._repository.find({ where, select: options.select });
+	public async findBy(where: FindOptionsWhere<T> | FindOptionsWhere<T>[]): Promise<T[]> {
+		return await this._repository.find({ where});
 	}
 
 	/**

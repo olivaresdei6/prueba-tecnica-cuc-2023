@@ -1,6 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { Grupo } from './';
+import { Grupo, ProgramaAcademico } from './';
 
 
 @Entity('docente')
@@ -95,4 +95,8 @@ export class Docente {
 
 	@OneToMany(() => Grupo, grupo => grupo.docente)
 	grupos?: Grupo[];
+
+	@ManyToOne(() => ProgramaAcademico, programaAcademico => programaAcademico.id, {eager: true})
+	@JoinColumn({name: 'id_programa_academico'})
+	programaAcademico!: number;
 }

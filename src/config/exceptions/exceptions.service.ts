@@ -14,18 +14,18 @@ import { IException } from './interfaces/message.interface';
 @Injectable()
 export class ExceptionsService implements IException {
 	unauthorizedException(data?: IFormatExceptionMessage): void {
-		throw new UnauthorizedException(data);
+		throw new UnauthorizedException([data]);
 	}
 	notFoundException(data?: IFormatExceptionMessage): void {
-		throw new NotFoundException(data);
+		throw new NotFoundException([data]);
 	};
 	badRequestException(data: IFormatExceptionMessage): void {
-		throw new BadRequestException(data);
+		throw new BadRequestException([data]);
 	};
 	internalServerErrorException(data?: IFormatExceptionMessage): void {
-		throw new InternalServerErrorException(data);
+		throw new InternalServerErrorException([data]);
 	};
 	forbiddenException(data?: IFormatExceptionMessage): void {
-		throw new ForbiddenException(data);
+		throw new ForbiddenException([data]);
 	};
 }
