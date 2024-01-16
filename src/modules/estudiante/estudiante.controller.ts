@@ -45,6 +45,7 @@ export class EstudianteController {
 	@ApiResponse({ status: 404, description: 'Not Found: El Estudiante no existe' })
 	@Get(':uuid')
 	findOne(@Param('uuid', ParseUUIDPipe) uuid: string) {
+		console.log("el id del usuario es : " + uuid)
 		return this.estudianteService.findOne(uuid);
 	}
 
