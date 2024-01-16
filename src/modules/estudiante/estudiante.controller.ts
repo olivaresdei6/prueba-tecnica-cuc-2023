@@ -46,6 +46,7 @@ export class EstudianteController {
 	@Get(':uuid')
 	findOne(@Param('uuid', ParseUUIDPipe) uuid: string) {
 		console.log("el id del usuario es : " + uuid)
+		console.log("el id del usuario es : " + uuid)
 		return this.estudianteService.findOne(uuid);
 	}
 
